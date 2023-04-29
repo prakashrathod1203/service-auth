@@ -9,17 +9,19 @@ import java.util.Locale;
 
 @Component
 public class Translator {
+
 	@Autowired
 	private static ResourceBundleMessageSource messageSource;
 
-
 	   public static String toLocale(String key) {
 	      Locale locale = LocaleContextHolder.getLocale();
-	      return messageSource.getMessage(key, null, locale);
+	     // return messageSource.getMessage(key, null, locale);
+		  return "TODO";
 	   }
 
 	public static String toLocale(String key, Object... args) {
 		Locale locale = LocaleContextHolder.getLocale();
-		return messageSource.getMessage(key, args, locale);
+		//return messageSource.getMessage(key, args, locale);
+		return "TODO";
 	}
 }

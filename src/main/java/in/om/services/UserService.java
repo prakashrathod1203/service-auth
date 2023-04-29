@@ -1,4 +1,4 @@
-package in.om.service;
+package in.om.services;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

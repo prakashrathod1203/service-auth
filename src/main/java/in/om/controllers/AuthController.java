@@ -1,8 +1,8 @@
-package in.om.controller;
+package in.om.controllers;
 
 import in.om.component.ApiResponseDoc;
 import in.om.component.Translator;
-import in.om.constants.ResourceEndpoint;
+import in.om.constants.CentralAuthResourceEndpoint;
 import in.om.model.User;
 import in.om.payload.*;
 import in.om.request.UserLoginRequest;
@@ -11,8 +11,8 @@ import in.om.response.UserLoginResponse;
 import in.om.security.JwtUtil;
 import in.om.security.TokenDetails;
 import in.om.security.UserPrincipal;
-import in.om.service.UserService;
-import in.om.service.impl.UserNotificationService;
+import in.om.services.UserService;
+import in.om.services.impl.UserNotificationService;
 import in.om.utility.ApplicationConstants;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -39,7 +39,8 @@ import java.util.UUID;
 
 @Api(tags = "Authentication", value = "AuthController")
 @Validated
-@RequestMapping(ResourceEndpoint.AUTH)
+@RestController
+@RequestMapping(CentralAuthResourceEndpoint.AUTH)
 @RequiredArgsConstructor
 public class AuthController {
 

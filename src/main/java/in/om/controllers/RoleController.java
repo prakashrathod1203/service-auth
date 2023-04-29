@@ -1,4 +1,4 @@
-package in.om.controller;
+package in.om.controllers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import in.om.model.Role;
 import in.om.payload.ApiResponse;
-import in.om.service.RoleService;
+import in.om.services.RoleService;
 import in.om.utility.ApplicationConstants;
 
 import io.swagger.annotations.Api;

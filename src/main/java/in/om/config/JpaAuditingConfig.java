@@ -1,6 +1,6 @@
 package in.om.config;
 
-import in.om.service.impl.UserNameAuditorAware;
+import in.om.services.impl.UserNameAuditorAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;

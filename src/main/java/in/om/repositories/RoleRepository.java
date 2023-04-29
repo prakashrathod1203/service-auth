@@ -1,4 +1,4 @@
-package in.om.repository;
+package in.om.repositories;
 
 import java.util.Optional;
 

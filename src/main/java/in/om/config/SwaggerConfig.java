@@ -41,6 +41,21 @@ public class SwaggerConfig {
     }
 
     /**
+     * Master Data API's configurations.
+     */
+    @Bean
+    public Docket masterDataAPI(ServletContext servletContext) {
+        return new Docket(SWAGGER_2).apiInfo(apiInfo())
+                .groupName("MasterData")
+                .tags(new Tag("Organization", "Organization API's"))
+                .useDefaultResponseMessages(false)
+                .securitySchemes(Arrays.asList(apiKey()))
+                .securityContexts(Arrays.asList(securityContext()))
+                .select()
+                .paths(PathSelectors.regex(".*/organization.*")).build();
+    }
+
+    /**
      * User authentication API's configurations.
      */
     @Bean

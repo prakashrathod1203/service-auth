@@ -1,11 +1,11 @@
-package in.om.service.impl;
+package in.om.services.impl;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import in.om.payload.Mail;
 import in.om.security.JwtUtil;
-import in.om.service.UserService;
+import in.om.services.UserService;
 import in.om.socket.config.SocketSessionRegistry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

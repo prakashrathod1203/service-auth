@@ -1,4 +1,4 @@
-package in.om.controller;
+package in.om.controllers;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import in.om.component.Translator;
-import in.om.service.impl.UserNotificationService;
+import in.om.services.impl.UserNotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +30,7 @@ import in.om.payload.ApiResponse;
 import in.om.payload.DataFilter;
 import in.om.payload.FileResponse;
 import in.om.payload.ResultFilterResponce;
-import in.om.service.UserService;
+import in.om.services.UserService;
 import in.om.utility.ApplicationConstants;
 
 import io.swagger.annotations.Api;

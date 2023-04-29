@@ -1,4 +1,4 @@
-package in.om.service.impl;
+package in.om.services.impl;
 
 import in.om.component.Translator;
 import in.om.exceptions.RecordNotFoundException;
@@ -7,9 +7,9 @@ import in.om.model.User;
 import in.om.payload.DataFilter;
 import in.om.payload.FileResponse;
 import in.om.payload.ResultFilterResponce;
-import in.om.repository.UserRepository;
+import in.om.repositories.UserRepository;
 import in.om.security.UserPrincipal;
-import in.om.service.UserService;
+import in.om.services.UserService;
 import in.om.utility.ApplicationConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

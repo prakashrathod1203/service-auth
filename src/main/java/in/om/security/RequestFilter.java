@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import in.om.component.TenantContext;
 import in.om.component.Translator;
 import in.om.response.ResponseBody;
-import in.om.service.UserService;
+import in.om.services.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;

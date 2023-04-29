@@ -1,4 +1,4 @@
-package in.om.service.impl;
+package in.om.services.impl;
 
 import in.om.security.UserPrincipal;
 import org.springframework.data.domain.AuditorAware;

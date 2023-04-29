@@ -1,4 +1,4 @@
-package in.om.service;
+package in.om.services;
 
 import java.util.List;
 import java.util.Optional;
