@@ -16,12 +16,12 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreType
-public class GroupIdentity implements Serializable {
-    private String organizationId;
+public class SubGroupIdentity implements Serializable {
+    private String groupId;
     private String id;
 
     @Override
     public String toString() {
-        return "[ organizationId='" + organizationId + '\'' + ", id='" + id + '\'' + ']';
+        return "[ groupId='" + groupId + '\'' + ", id='" + id + '\'' + ']';
     }
 }

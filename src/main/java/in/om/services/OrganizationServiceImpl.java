@@ -34,8 +34,8 @@ public class OrganizationServiceImpl implements OrganizationService {
     private final IdGenerator idGenerator;
 
     @Override
-    @Caching(put = @CachePut(cacheNames = CacheableCacheName.ORGANIZATION,  key = CacheableCacheKey.ORGANIZATION),
-            evict = @CacheEvict(cacheNames = CacheableCacheName.ORGANIZATIONS, allEntries = true))
+    @Caching(put = @CachePut(cacheNames = CacheableCacheName.ORGANIZATION,  key = CacheableCacheKey.ORGANIZATION_RES, unless = "#result == null"),
+            evict = @CacheEvict(cacheNames = CacheableCacheName.ORGANIZATIONS, condition = "#result != null", allEntries = true))
     public OrganizationVO create(OrganizationDTO organizationDTO) {
         log.debug("organizationDTO : {}", organizationDTO);
         Organization organization = CommonUtils.objectToPojoConverter(organizationDTO, Organization.class);
@@ -47,8 +47,8 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    @Caching(put = @CachePut(cacheNames = CacheableCacheName.ORGANIZATION, key = CacheableCacheKey.ORGANIZATION),
-            evict = @CacheEvict(cacheNames = CacheableCacheName.ORGANIZATIONS, allEntries = true))
+    @Caching(put = @CachePut(cacheNames = CacheableCacheName.ORGANIZATION, key = CacheableCacheKey.ORGANIZATION, unless = "#result == null"),
+            evict = @CacheEvict(cacheNames = CacheableCacheName.ORGANIZATIONS, condition = "#result != null", allEntries = true))
     public OrganizationVO update(String id, OrganizationDTO organizationDTO) throws RecordNotFoundException {
         log.debug("id : {}, organizationDTO : {}", id, organizationDTO);
         Organization dbOrganization = organizationRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(Translator.toLocale("record.not-exist", id)));
@@ -60,8 +60,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     @Caching(evict = {
-            @CacheEvict(cacheNames = CacheableCacheName.ORGANIZATION, key = CacheableCacheKey.ORGANIZATION),
-            @CacheEvict(cacheNames = CacheableCacheName.ORGANIZATIONS, allEntries = true) })
+            @CacheEvict(cacheNames = CacheableCacheName.ORGANIZATION, key = CacheableCacheKey.ORGANIZATION, condition = "#result != null"),
+            @CacheEvict(cacheNames = CacheableCacheName.ORGANIZATIONS, condition = "#result != null", allEntries = true) })
     public OrganizationVO delete(String id) throws RecordNotFoundException {
         log.debug("id : {}", id);
         Organization organization = organizationRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(Translator.toLocale("record.not-exist", id)));
@@ -70,14 +70,14 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    @Cacheable(value = CacheableCacheName.ORGANIZATIONS)
+    @Cacheable(value = CacheableCacheName.ORGANIZATIONS, unless = "#result == null")
     public List<OrganizationVO> fetchOrganizations() {
         List<Organization> organizations = organizationRepository.findAll();
         return organizationHelper.getOrganizationVOList(organizations);
     }
 
     @Override
-    @Cacheable(value = CacheableCacheName.ORGANIZATION, key = CacheableCacheKey.ORGANIZATION)
+    @Cacheable(value = CacheableCacheName.ORGANIZATION, key = CacheableCacheKey.ORGANIZATION, unless = "#result == null")
     public OrganizationVO fetchOrganization(String id) throws RecordNotFoundException {
         log.debug("id : {}", id);
         Organization organization = organizationRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(Translator.toLocale("record.not-exist", id)));

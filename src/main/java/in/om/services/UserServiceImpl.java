@@ -2,14 +2,12 @@ package in.om.services;
 
 import in.om.component.Translator;
 import in.om.exceptions.RecordNotFoundException;
-import in.om.model.Role;
 import in.om.model.User;
 import in.om.payload.DataFilter;
 import in.om.payload.FileResponse;
 import in.om.payload.ResultFilterResponce;
 import in.om.repositories.UserRepository;
 import in.om.security.UserPrincipal;
-import in.om.services.UserService;
 import in.om.utility.ApplicationConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -82,16 +80,16 @@ public class UserServiceImpl implements UserService {
 	   CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 	   CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
 	   Root<User> user = criteriaQuery.from(User.class);
-	   Join<User, Role> userRole = user.join("roles", JoinType.INNER);
+	   //Join<User, Role> userRole = user.join("roles", JoinType.INNER);
 	   
 	   Predicate activePredicate = criteriaBuilder.equal(user.get("active"), status.equals(ApplicationConstants.STATUS_ACTIVE) ? true : false);
 	   Predicate firstPredicate = criteriaBuilder.like(user.get("firstName"), "%" + resultFilter.getSearchValue() + "%");
 	   Predicate lastNamePredicate = criteriaBuilder.like(user.get("lastName"), "%" + resultFilter.getSearchValue() + "%");
 	   Predicate rolePredicate = null;
 	   if(isAdmin){
-		   rolePredicate = criteriaBuilder.notEqual(userRole.get("name"), ApplicationConstants.ROLE_CUSTOMER);
+		   //rolePredicate = criteriaBuilder.notEqual(userRole.get("name"), ApplicationConstants.ROLE_CUSTOMER);
 	   } else{
-		   rolePredicate = criteriaBuilder.equal(userRole.get("name"), ApplicationConstants.ROLE_CUSTOMER);
+		  // rolePredicate = criteriaBuilder.equal(userRole.get("name"), ApplicationConstants.ROLE_CUSTOMER);
 	   }
 	   Predicate finalPredicate = criteriaBuilder.or(firstPredicate, lastNamePredicate);
 	   if(resultFilter.getSortField() != null) {
@@ -203,9 +201,9 @@ public class UserServiceImpl implements UserService {
 		User user = userRepository.findByusername(username).orElseThrow(() -> new RecordNotFoundException(Translator.toLocale("user.not.found", username)));
 
 		ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-		user.getRoles().forEach(role -> {
-			authorities.add(new SimpleGrantedAuthority(role.getName()));
-		});
+//		user.getRoles().forEach(role -> {
+//			authorities.add(new SimpleGrantedAuthority(role.getName()));
+//		});
 		UserDetails userDetails = new UserPrincipal(user.getUserId(), 0L, 0L, user.getUsername(), "", user.getPassword(), authorities);
 		log.debug("loadUserByUsername() in UserServiceImpl, Response {}", userDetails);
 		return userDetails;

@@ -1,14 +1,19 @@
 package in.om.services;
 
+import in.om.dtos.RoleDTO;
+import in.om.exceptions.RecordNotFoundException;
+import in.om.vos.RoleVO;
+
 import java.util.List;
-import java.util.Optional;
 
-import in.om.model.Role;
-
+/**
+ * @author Prakash Rathod
+ */
 public interface RoleService {
-	Role update(Role user);
-	void delete(Role user);
-	Optional<Role> findByRoleName(String roleName);
-	Optional<Role> findById(Short userId);
-	List<Role> findAll();
+	RoleVO create(String groupId, RoleDTO roleDTO);
+	RoleVO update(String groupId, String id, RoleDTO roleDTO) throws RecordNotFoundException;
+	RoleVO delete(String groupId, String id) throws RecordNotFoundException;
+
+	List<RoleVO> fetchRoles(String groupId);
+	RoleVO fetchRole(String groupId, String id) throws RecordNotFoundException;
 }

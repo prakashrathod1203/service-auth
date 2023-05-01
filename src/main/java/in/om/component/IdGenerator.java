@@ -19,6 +19,14 @@ public class IdGenerator {
         return getWordFirstLetter(name);
     }
 
+    public String getSubGroupId(String name) {
+        return getWordFirstLetter(name);
+    }
+
+    public String getRoleId(String groupId, long count) {
+        return String.format("%s|%d",groupId.toUpperCase(), count+1);
+    }
+
     private String getWordFirstLetter(String str) {
         Pattern pattern = Pattern.compile("\\b[a-zA-Z]");
         Matcher matcher = pattern.matcher(str);

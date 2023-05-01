@@ -77,13 +77,13 @@ public class User extends Auditable<String> {
 	@Column(name = "login_attempts", columnDefinition = "BIGINT")
 	protected Short loginAttempts = 0;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "user_to_role", 
-		joinColumns = { @JoinColumn(name = "user_id") }, 
-		inverseJoinColumns = { @JoinColumn(name = "role_id") 
-	})
-	@BatchSize(size = 100)
-	protected Set<Role> roles;
+//	@ManyToMany(fetch = FetchType.EAGER)
+//	@JoinTable(name = "user_to_role",
+//		joinColumns = { @JoinColumn(name = "user_id") },
+//		inverseJoinColumns = { @JoinColumn(name = "role_id")
+//	})
+//	@BatchSize(size = 100)
+//	protected Set<Role> roles;
 	
 	@Column(name = "active", columnDefinition = "BIT")
 	protected Boolean active = Boolean.TRUE;

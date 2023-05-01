@@ -48,7 +48,9 @@ public class SwaggerConfig {
         return new Docket(SWAGGER_2).apiInfo(apiInfo())
                 .groupName("MasterData")
                 .tags(new Tag("Organization", "Organization API's"),
-                        new Tag("Group", "Group API's"))
+                        new Tag("Group", "Group API's"),
+                        new Tag("SubGroup", "SubGroup API's"),
+                        new Tag("Role", "Role API's"))
                 .useDefaultResponseMessages(false)
                 .securitySchemes(Arrays.asList(apiKey()))
                 .securityContexts(Arrays.asList(securityContext()))

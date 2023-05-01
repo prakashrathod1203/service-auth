@@ -11,7 +11,7 @@ import javax.persistence.Table;
  * @author Prakash Rathod
  */
 @Entity
-@Table(name = "co_organization")
+@Table(name = "ca_organization")
 @Data
 public class Organization {
     @Id

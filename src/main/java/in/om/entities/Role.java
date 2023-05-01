@@ -8,17 +8,17 @@ import javax.persistence.*;
  * @author Prakash Rathod
  */
 @Entity
-@Table(name = "ca_group")
+@Table(name = "ca_role")
 @Data
-@IdClass(GroupIdentity.class)
-public class Group {
+@IdClass(RoleIdentity.class)
+public class Role {
 
     @Id @Column
     private String id;
-
-    @Id @Column(name = "org_id")
-    private String organizationId;
-
+    @Id @Column(name = "group_id")
+    private String groupId;
     @Column
     private String name;
+    @Column
+    private String description;
 }

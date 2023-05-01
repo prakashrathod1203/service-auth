@@ -35,8 +35,8 @@ public class GroupServiceImpl implements GroupService {
     private final GroupHelper groupHelper;
 
     @Override
-    @Caching(put = @CachePut(cacheNames = CacheableCacheName.GROUP, key= CacheableCacheKey.GROUP),
-            evict = @CacheEvict(cacheNames = CacheableCacheName.GROUPS, key= CacheableCacheKey.GROUPS , allEntries = true))
+    @Caching(put = @CachePut(cacheNames = CacheableCacheName.GROUP, key= CacheableCacheKey.GROUP_RES, unless = "#result == null"),
+            evict = @CacheEvict(cacheNames = CacheableCacheName.GROUPS, key= CacheableCacheKey.GROUPS , condition = "#result != null", allEntries = true))
     public GroupVO create(String organizationId, GroupDTO groupDTO) {
         log.debug("groupDTO : {}", groupDTO);
         Group group = CommonUtils.objectToPojoConverter(groupDTO, Group.class);
@@ -52,8 +52,8 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    @Caching(put = @CachePut(cacheNames = CacheableCacheName.GROUP, key = CacheableCacheKey.GROUP),
-            evict = @CacheEvict(cacheNames = CacheableCacheName.GROUPS, key = CacheableCacheKey.GROUPS, allEntries = true))
+    @Caching(put = @CachePut(cacheNames = CacheableCacheName.GROUP, key = CacheableCacheKey.GROUP, unless = "#result == null"),
+            evict = @CacheEvict(cacheNames = CacheableCacheName.GROUPS, key = CacheableCacheKey.GROUPS, condition = "#result != null", allEntries = true))
     public GroupVO update(String organizationId, String id, GroupDTO groupDTO) throws RecordNotFoundException {
         GroupIdentity groupIdentity = new GroupIdentity(organizationId, id);
         log.debug("groupIdentity : {}, groupDTO : {}", groupIdentity, groupDTO);
@@ -67,8 +67,8 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     @Caching(evict = {
-            @CacheEvict(cacheNames = CacheableCacheName.GROUP, key = CacheableCacheKey.GROUP),
-            @CacheEvict(cacheNames = CacheableCacheName.GROUPS, key = CacheableCacheKey.GROUPS, allEntries = true) })
+            @CacheEvict(cacheNames = CacheableCacheName.GROUP, key = CacheableCacheKey.GROUP, condition = "#result != null"),
+            @CacheEvict(cacheNames = CacheableCacheName.GROUPS, key = CacheableCacheKey.GROUPS, condition = "#result != null", allEntries = true) })
     public GroupVO delete(String organizationId, String id) throws RecordNotFoundException {
         GroupIdentity groupIdentity = new GroupIdentity(organizationId, id);
         log.debug("groupIdentity : {}", groupIdentity);
@@ -78,7 +78,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    @Cacheable(value = CacheableCacheName.GROUPS, key = CacheableCacheKey.GROUPS)
+    @Cacheable(value = CacheableCacheName.GROUPS, key = CacheableCacheKey.GROUPS, unless = "#result == null")
     public List<GroupVO> fetchGroups(String organizationId) {
         log.debug("organizationId : {}", organizationId);
         List<Group> groups = groupRepository.findByOrganizationId(organizationId);
@@ -86,7 +86,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    @Cacheable(value = CacheableCacheName.GROUP, key = CacheableCacheKey.GROUP)
+    @Cacheable(value = CacheableCacheName.GROUP, key = CacheableCacheKey.GROUP, unless = "#result == null")
     public GroupVO fetchGroup(String organizationId, String id) throws RecordNotFoundException {
         GroupIdentity groupIdentity = new GroupIdentity(organizationId, id);
         log.debug("groupIdentity : {}", groupIdentity);

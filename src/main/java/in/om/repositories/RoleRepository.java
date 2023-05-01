@@ -1,11 +1,12 @@
 package in.om.repositories;
 
-import java.util.Optional;
-
+import in.om.entities.Role;
+import in.om.entities.RoleIdentity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import in.om.model.Role;
+import java.util.List;
 
-public interface RoleRepository extends JpaRepository<Role, Short> {
-	Optional<Role> findByName(String roleName);
+public interface RoleRepository extends JpaRepository<Role, RoleIdentity> {
+	List<Role> findByGroupId(String groupId);
+	long countByGroupId(String groupId);
 }
