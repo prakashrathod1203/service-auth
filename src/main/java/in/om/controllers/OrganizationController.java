@@ -31,9 +31,9 @@ public class OrganizationController {
     @ApiResponseDoc
     @ApiOperation(value = "Fetch Organization", response = ResponseBody.class)
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseBody> fetchOrganization(@PathVariable("id")String id) {
+    public ResponseEntity<ResponseBody> fetchOrganization(@PathVariable("id") String id) {
         OrganizationVO organizationVO = organizationService.fetchOrganization(id);
-        ResponseBody responseBody = new ResponseBody(Translator.toLocale("role.added.success"), organizationVO,true);
+        ResponseBody responseBody = new ResponseBody(Translator.toLocale("record.fetch.successfully"), organizationVO,true);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 
@@ -42,25 +42,34 @@ public class OrganizationController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseBody> fetchOrganizations() {
         List<OrganizationVO> organizationVOList = organizationService.fetchOrganizations();
-        ResponseBody responseBody = new ResponseBody(Translator.toLocale("role.added.success"), organizationVOList,true);
+        ResponseBody responseBody = new ResponseBody(Translator.toLocale("record.fetch.successfully"), organizationVOList,true);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 
     @ApiResponseDoc
-    @ApiOperation(value = "Create Organizations", response = ResponseBody.class)
+    @ApiOperation(value = "Create Organization", response = ResponseBody.class)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseBody> create(@RequestBody OrganizationDTO organizationDTO){
         OrganizationVO organizationVO = organizationService.create(organizationDTO);
-        ResponseBody responseBody = new ResponseBody(Translator.toLocale("role.added.success"), organizationVO,true);
+        ResponseBody responseBody = new ResponseBody(Translator.toLocale("record.created.successfully"), organizationVO,true);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 
     @ApiResponseDoc
-    @ApiOperation(value = "Update Organizations", response = ResponseBody.class)
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Update Organization", response = ResponseBody.class)
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseBody> update(@PathVariable("id") String id, @RequestBody OrganizationDTO organizationDTO) {
         OrganizationVO organizationVO = organizationService.update(id, organizationDTO);
-        ResponseBody responseBody = new ResponseBody(Translator.toLocale("role.added.success"), organizationVO,true);
+        ResponseBody responseBody = new ResponseBody(Translator.toLocale("record.updated.successfully"), organizationVO,true);
+        return ResponseEntity.status(HttpStatus.OK).body(responseBody);
+    }
+
+    @ApiResponseDoc
+    @ApiOperation(value = "Delete Organization", response = ResponseBody.class)
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseBody> delete(@PathVariable("id") String id) {
+        OrganizationVO organizationVO = organizationService.delete(id);
+        ResponseBody responseBody = new ResponseBody(Translator.toLocale("record.deleted.successfully"), organizationVO,true);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }

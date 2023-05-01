@@ -1,4 +1,4 @@
-package in.om.services.impl;
+package in.om.services;
 
 import in.om.component.Translator;
 import in.om.exceptions.RecordNotFoundException;

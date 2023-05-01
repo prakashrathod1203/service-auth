@@ -8,13 +8,17 @@ import lombok.Data;
 /**
  * @author Prakash Rathod
  */
-@ApiModel(description = "Organization Value Object")
+@ApiModel(description = "Group Value Object")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class OrganizationVO {
-    @ApiModelProperty(notes = "id", example = "OM")
+public class GroupVO {
+
+    @ApiModelProperty(notes = "id", example = "TT")
     private String id;
 
-    @ApiModelProperty(notes = "name", example = "Onset Matrix")
+    @ApiModelProperty(notes = "organizationId", example = "OM")
+    private String organizationId;
+
+    @ApiModelProperty(notes = "name", example = "Marble & Granites")
     private String name;
 }

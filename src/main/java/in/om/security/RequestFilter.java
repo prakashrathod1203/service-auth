@@ -40,6 +40,7 @@ public class RequestFilter extends OncePerRequestFilter {
         final String requestTokenHeader = request.getHeader(JwtUtil.AUTHORIZATION);
         TokenDetails tokenDetails = null;
         String jwtToken = null;
+        TenantContext.setCurrentOrganizationId("OM");
         // JWT Token is in the form "Bearer token". Remove Bearer word and get only the Token
 
         if (requestTokenHeader != null && requestTokenHeader.startsWith(JwtUtil.BEARER)) {
@@ -47,7 +48,7 @@ public class RequestFilter extends OncePerRequestFilter {
             try {
                 tokenDetails = jwtUtil.getTokenDetails(jwtToken);
                 //Tenant
-                TenantContext.setCurrentTenantId(tokenDetails.getSystemClientId());
+                //TenantContext.setCurrentTenantId(tokenDetails.getSystemClientId());
             } catch (IllegalArgumentException e) {
                 handleException(response, Translator.toLocale("auth.invalid.username-password"));
                 return;

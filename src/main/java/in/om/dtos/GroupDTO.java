@@ -9,11 +9,12 @@ import lombok.Data;
 /**
  * @author Prakash Rathod
  */
-@ApiModel(description = "Organization Data Transfer Object")
+@ApiModel(description = "Group Data Transfer Object")
 @Data
-public class OrganizationDTO {
+public class GroupDTO {
+
     @JsonProperty("name")
-    @ApiModelProperty(notes = "name", example = "Onset Matrix")
+    @ApiModelProperty(notes = "name", example = "Marble & Granites")
     private String name;
 
     @Override

@@ -47,12 +47,13 @@ public class SwaggerConfig {
     public Docket masterDataAPI(ServletContext servletContext) {
         return new Docket(SWAGGER_2).apiInfo(apiInfo())
                 .groupName("MasterData")
-                .tags(new Tag("Organization", "Organization API's"))
+                .tags(new Tag("Organization", "Organization API's"),
+                        new Tag("Group", "Group API's"))
                 .useDefaultResponseMessages(false)
                 .securitySchemes(Arrays.asList(apiKey()))
                 .securityContexts(Arrays.asList(securityContext()))
                 .select()
-                .paths(PathSelectors.regex(".*/organization.*")).build();
+                .paths(PathSelectors.regex(".*/master.*")).build();
     }
 
     /**
@@ -102,4 +103,5 @@ public class SwaggerConfig {
         final AuthorizationScope[] authorizationScopes = {new AuthorizationScope("global", "accessEverything")};
         return Collections.singletonList(new SecurityReference(AUTHORIZATION, authorizationScopes));
     }
+
 }

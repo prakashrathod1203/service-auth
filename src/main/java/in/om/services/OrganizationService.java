@@ -10,8 +10,9 @@ import java.util.List;
  * @author Prakash Rathod
  */
 public interface OrganizationService {
-    OrganizationVO create(OrganizationDTO request);
+    OrganizationVO create(OrganizationDTO organizationDTO);
     OrganizationVO update(String id, OrganizationDTO organizationDTO) throws RecordNotFoundException;
+    OrganizationVO delete(String id) throws RecordNotFoundException;
 
     List<OrganizationVO> fetchOrganizations();
     OrganizationVO fetchOrganization(String id) throws RecordNotFoundException;

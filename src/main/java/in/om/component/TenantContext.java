@@ -2,17 +2,17 @@ package in.om.component;
 
 public class TenantContext {
 
-	  private static ThreadLocal<Long> currentTenantId = new ThreadLocal<>();
+	  private static ThreadLocal<String> currentOrganizationId = new ThreadLocal<>();
 
-	  public static void setCurrentTenantId(Long tenantId) {
-		  currentTenantId.set(tenantId);
+	  public static void setCurrentOrganizationId(String organizationId) {
+		  currentOrganizationId.set(organizationId);
 	  }
 
-	  public static Long getCurrentTenantId() {
-	    return currentTenantId.get();
+	  public static String getCurrentOrganizationId() {
+	    return currentOrganizationId.get();
 	  }
 
 	  public static void clear() {
-		  currentTenantId.remove();
+		  currentOrganizationId.remove();
 	  }
 }
