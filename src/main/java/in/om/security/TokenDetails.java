@@ -1,5 +1,6 @@
 package in.om.security;
 
+import in.om.entities.record.UserResource;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,9 +11,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class TokenDetails {
 
-    private Integer id;
+    private String loginId;
 
-    private Long systemClientId;
-
-    private String userName;
+    private UserResource resource;
 }

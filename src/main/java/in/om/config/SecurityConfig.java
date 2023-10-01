@@ -41,8 +41,8 @@ public class SecurityConfig {
         httpSecurity.csrf().disable()
 
                 // Don't authenticate this particular request
-                .authorizeRequests().antMatchers("/api/om/v1/auth", "/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**",
-                        "/api/om/v1/file/download/*", "/api/om/v1/**").permitAll()
+                .authorizeRequests().antMatchers("/api/om/auth/v1/login", "/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**",
+                        "/api/om/v1/file/download/*").permitAll()
                 // All other requests need to be authenticated
                 .anyRequest().authenticated().and()
                 // Make sure we use stateless session; session won't be used to store user's state.

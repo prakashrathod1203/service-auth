@@ -4,8 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import in.om.component.Translator;
+import in.om.entities.User;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageType;
@@ -34,6 +35,15 @@ public class CommonUtils {
 
 	public static <T> T objectToPojoConverter(Object object, Class<T> dto) {
 		return objectMapper().convertValue(object, dto);
+	}
+
+	public static <T> T jsonStringToPojoConverter(String jsonString, Class<T> dto) {
+		try {
+			return objectMapper().readValue(jsonString, dto);
+		} catch(IllegalArgumentException | JsonProcessingException e) {
+			log.error("Error while create jsonString to POJO.", e);
+		}
+		return null;
 	}
 
 	public static <S, T> List<T> objectToPojoConverter(List<S> source, Class<T> targetClass) {
@@ -179,4 +189,10 @@ public class CommonUtils {
 		long diffInMillies = Math.abs(date1.getTime() - date2.getTime());
 		return TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 	}*/
+
+	public static String getFullName(User user) {
+		String firstName = StringUtils.isEmpty(user.getFirstName()) ? "" : user.getFirstName();
+		String lastName = StringUtils.isEmpty(user.getFirstName()) ? "" : user.getLastName();
+		return String.format("%s %s", firstName, lastName);
+	}
 }

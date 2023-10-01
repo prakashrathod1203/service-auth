@@ -30,7 +30,7 @@ public class SubGroupController {
 
     @ApiResponseDoc
     @ApiOperation(value = "Fetch SubGroup", response = ResponseBody.class)
-    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = CentralAuthResourceEndpoint.SUB_GROUP_V1_FETCH, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseBody> fetchSubGroup(@PathVariable("groupId") String groupId,
                                                    @PathVariable("id") String id) {
         SubGroupVO subGroupVO = subGroupService.fetchSubGroup(groupId, id);
@@ -40,7 +40,7 @@ public class SubGroupController {
 
     @ApiResponseDoc
     @ApiOperation(value = "Fetch SubGroups", response = ResponseBody.class)
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = CentralAuthResourceEndpoint.SUB_GROUP_V1_FETCH_ALL, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseBody> fetchGroups(@PathVariable("groupId") String groupId) {
         List<SubGroupVO> subGroupVOList = subGroupService.fetchSubGroups(groupId);
         ResponseBody responseBody = new ResponseBody(Translator.toLocale("record.fetch.successfully"), subGroupVOList,true);
@@ -49,7 +49,7 @@ public class SubGroupController {
 
     @ApiResponseDoc
     @ApiOperation(value = "Create SubGroup", response = ResponseBody.class)
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = CentralAuthResourceEndpoint.SUB_GROUP_V1_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseBody> create(@PathVariable("groupId") String groupId,
                                                @RequestBody SubGroupDTO subGroupDTO){
         SubGroupVO subGroupVO = subGroupService.create(groupId, subGroupDTO);
@@ -59,7 +59,7 @@ public class SubGroupController {
 
     @ApiResponseDoc
     @ApiOperation(value = "Update SubGroup", response = ResponseBody.class)
-    @PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = CentralAuthResourceEndpoint.SUB_GROUP_V1_UPDATE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseBody> update(@PathVariable("groupId") String groupId,
                                                @PathVariable("id") String id, @RequestBody SubGroupDTO subGroupDTO) {
         SubGroupVO subGroupVO = subGroupService.update(groupId, id, subGroupDTO);
@@ -69,7 +69,7 @@ public class SubGroupController {
 
     @ApiResponseDoc
     @ApiOperation(value = "Delete SubGroup", response = ResponseBody.class)
-    @DeleteMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(path = CentralAuthResourceEndpoint.SUB_GROUP_V1_DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseBody> delete(@PathVariable("groupId") String groupId,
                                                @PathVariable("id") String id) {
         SubGroupVO subGroupVO = subGroupService.delete(groupId, id);

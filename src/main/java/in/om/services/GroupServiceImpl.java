@@ -6,7 +6,7 @@ import in.om.constants.CacheableCacheKey;
 import in.om.constants.CacheableCacheName;
 import in.om.dtos.GroupDTO;
 import in.om.entities.Group;
-import in.om.entities.GroupIdentity;
+import in.om.entities.identity.GroupIdentity;
 import in.om.exceptions.RecordNotFoundException;
 import in.om.helper.GroupHelper;
 import in.om.repositories.GroupRepository;

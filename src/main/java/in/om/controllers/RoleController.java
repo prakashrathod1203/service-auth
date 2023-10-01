@@ -30,7 +30,7 @@ public class RoleController {
 
     @ApiResponseDoc
     @ApiOperation(value = "Fetch Role", response = ResponseBody.class)
-    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = CentralAuthResourceEndpoint.ROLE_V1_FETCH, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseBody> fetchRole(@PathVariable("groupId") String groupId,
                                                    @PathVariable("id") String id) {
         RoleVO roleVO = roleService.fetchRole(groupId, id);
@@ -40,7 +40,7 @@ public class RoleController {
 
     @ApiResponseDoc
     @ApiOperation(value = "Fetch Roles", response = ResponseBody.class)
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = CentralAuthResourceEndpoint.ROLE_V1_FETCH_ALL, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseBody> fetchGroups(@PathVariable("groupId") String groupId) {
         List<RoleVO> roleVOList = roleService.fetchRoles(groupId);
         ResponseBody responseBody = new ResponseBody(Translator.toLocale("record.fetch.successfully"), roleVOList,true);
@@ -49,7 +49,7 @@ public class RoleController {
 
     @ApiResponseDoc
     @ApiOperation(value = "Create Role", response = ResponseBody.class)
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = CentralAuthResourceEndpoint.ROLE_V1_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseBody> create(@PathVariable("groupId") String groupId,
                                                @RequestBody RoleDTO roleDTO){
         RoleVO roleVO = roleService.create(groupId, roleDTO);
@@ -59,7 +59,7 @@ public class RoleController {
 
     @ApiResponseDoc
     @ApiOperation(value = "Update Role", response = ResponseBody.class)
-    @PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = CentralAuthResourceEndpoint.ROLE_V1_UPDATE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseBody> update(@PathVariable("groupId") String groupId,
                                                @PathVariable("id") String id, @RequestBody RoleDTO roleDTO) {
         RoleVO roleVO = roleService.update(groupId, id, roleDTO);
@@ -69,7 +69,7 @@ public class RoleController {
 
     @ApiResponseDoc
     @ApiOperation(value = "Delete Role", response = ResponseBody.class)
-    @DeleteMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(path = CentralAuthResourceEndpoint.ROLE_V1_DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseBody> delete(@PathVariable("groupId") String groupId,
                                                @PathVariable("id") String id) {
         RoleVO roleVO = roleService.delete(groupId, id);

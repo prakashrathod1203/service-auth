@@ -1,7 +1,7 @@
 package in.om.repositories;
 
 import in.om.entities.Group;
-import in.om.entities.GroupIdentity;
+import in.om.entities.identity.GroupIdentity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

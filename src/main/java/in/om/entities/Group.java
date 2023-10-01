@@ -1,5 +1,6 @@
 package in.om.entities;
 
+import in.om.entities.identity.GroupIdentity;
 import lombok.Data;
 
 import javax.persistence.*;

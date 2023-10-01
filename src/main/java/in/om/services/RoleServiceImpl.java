@@ -6,7 +6,7 @@ import in.om.constants.CacheableCacheKey;
 import in.om.constants.CacheableCacheName;
 import in.om.dtos.RoleDTO;
 import in.om.entities.Role;
-import in.om.entities.RoleIdentity;
+import in.om.entities.identity.RoleIdentity;
 import in.om.exceptions.RecordNotFoundException;
 import in.om.helper.RoleHelper;
 import in.om.repositories.RoleRepository;

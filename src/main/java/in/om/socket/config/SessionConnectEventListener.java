@@ -20,6 +20,6 @@ public class SessionConnectEventListener implements ApplicationListener<SessionC
 		String token = header.getNativeHeader("token").get(0);
 		TokenDetails tokenDetails = tokenProvider.getTokenDetails(token);
 		String sessionId = header.getSessionId();
-		webAgentSessionRegistry.registerSessionId(token, tokenDetails.getUserName(), sessionId);
+		webAgentSessionRegistry.registerSessionId(token, tokenDetails.getLoginId(), sessionId);
 	}
 }

@@ -1,9 +1,12 @@
 package in.om.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import in.om.entities.record.UserResource;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -12,6 +15,7 @@ import java.io.Serializable;
 import java.time.Duration;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -25,6 +29,10 @@ public class JwtUtil implements Serializable {
     public static final String BEARER = "Bearer ";
     private static final long serialVersionUID = -2550185165626007488L;
     private final String secret = "secret";
+    private static final String RESOURCE = "resource";
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Value("${jwt.expiration.in.minutes}")
     private int jwtExpirationInMinutes;
@@ -34,10 +42,11 @@ public class JwtUtil implements Serializable {
         if (token != null && token.startsWith(JwtUtil.BEARER)) {
             token = token.substring(7);
         }
-        String subject = getClaimFromToken(token, Claims::getSubject);
-        String [] tokenArray = subject.split("-");
-        // Id, ClientSystemId, Username
-        TokenDetails tokenDetails = new TokenDetails(Integer.valueOf(tokenArray[0].trim()), Long.valueOf(tokenArray[1].trim()), tokenArray[2].trim());
+        String loginId = getClaimFromToken(token, Claims::getSubject);
+        UserResource userResource = getUserResourceFromToken(token);
+
+        // Id, UserResource
+        TokenDetails tokenDetails = new TokenDetails(loginId, userResource);
         log.debug("getTokenDetails() in JwtUtil, Response : {}", tokenDetails);
         return tokenDetails;
     }
@@ -53,6 +62,11 @@ public class JwtUtil implements Serializable {
     public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = getAllClaimsFromToken(token);
         return claimsResolver.apply(claims);
+    }
+    public UserResource getUserResourceFromToken(String token) {
+        final Claims claims = getAllClaimsFromToken(token);
+        LinkedHashMap linkedHashMap = claims.get(RESOURCE, LinkedHashMap.class);
+        return objectMapper.convertValue(linkedHashMap, UserResource.class);
     }
 
     private Claims getAllClaimsFromToken(String token) {
@@ -72,8 +86,8 @@ public class JwtUtil implements Serializable {
     public String generateToken(UserPrincipal userPrincipal) {
         log.debug("generateToken() in JwtUtil, Request : {}", userPrincipal);
         Map<String, Object> claims = new HashMap();
-        String subject = String.format("%d-%d-%s",userPrincipal.getId(), userPrincipal.getClientSystemId(), userPrincipal.getUsername());
-        String token  = doGenerateToken(claims, subject);
+        claims.put(RESOURCE, userPrincipal.getResource());
+        String token  = doGenerateToken(claims, userPrincipal.getLoginId());
         log.debug("generateToken() in JwtUtil, Response : {}", token);
         return token;
     }
@@ -87,8 +101,7 @@ public class JwtUtil implements Serializable {
         return (!isTokenExpired(token) || ignoreTokenExpiration(token));
     }
 
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        final TokenDetails tokenDetails = getTokenDetails(token);
-        return (tokenDetails.getUserName().equals(userDetails.getUsername()) && !isTokenExpired(token));
+    public Boolean validateToken(String token, TokenDetails tokenDetails, UserDetails userDetails) {
+        return (tokenDetails.getLoginId().equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }

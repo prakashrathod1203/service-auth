@@ -30,7 +30,7 @@ public class GroupController {
 
     @ApiResponseDoc
     @ApiOperation(value = "Fetch Group", response = ResponseBody.class)
-    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = CentralAuthResourceEndpoint.GROUP_V1_FETCH, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseBody> fetchGroup(@PathVariable("organizationId") String organizationId,
                                                    @PathVariable("id") String id) {
         GroupVO groupVO = groupService.fetchGroup(organizationId, id);
@@ -40,7 +40,7 @@ public class GroupController {
 
     @ApiResponseDoc
     @ApiOperation(value = "Fetch Groups", response = ResponseBody.class)
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = CentralAuthResourceEndpoint.GROUP_V1_FETCH_ALL, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseBody> fetchGroups(@PathVariable("organizationId") String organizationId) {
         List<GroupVO> groupVOList = groupService.fetchGroups(organizationId);
         ResponseBody responseBody = new ResponseBody(Translator.toLocale("record.fetch.successfully"), groupVOList,true);
@@ -49,7 +49,7 @@ public class GroupController {
 
     @ApiResponseDoc
     @ApiOperation(value = "Create Group", response = ResponseBody.class)
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = CentralAuthResourceEndpoint.GROUP_V1_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseBody> create(@PathVariable("organizationId") String organizationId,
                                                @RequestBody GroupDTO groupDTO){
         GroupVO groupVO = groupService.create(organizationId, groupDTO);
@@ -59,7 +59,7 @@ public class GroupController {
 
     @ApiResponseDoc
     @ApiOperation(value = "Update Group", response = ResponseBody.class)
-    @PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = CentralAuthResourceEndpoint.GROUP_V1_UPDATE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseBody> update(@PathVariable("organizationId") String organizationId,
                                                @PathVariable("id") String id, @RequestBody GroupDTO groupDTO) {
         GroupVO groupVO = groupService.update(organizationId, id, groupDTO);
@@ -69,7 +69,7 @@ public class GroupController {
 
     @ApiResponseDoc
     @ApiOperation(value = "Delete Group", response = ResponseBody.class)
-    @DeleteMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(path = CentralAuthResourceEndpoint.GROUP_V1_DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseBody> delete(@PathVariable("organizationId") String organizationId,
                                                @PathVariable("id") String id) {
         GroupVO groupVO = groupService.delete(organizationId, id);

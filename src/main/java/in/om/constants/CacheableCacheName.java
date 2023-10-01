@@ -15,5 +15,8 @@ public class CacheableCacheName {
     public static final String ROLE = "role";
     public static final String ROLES = "roles";
 
+    public static final String USER_ROLES = "userRoles";
+    public static final String USER_SUB_GROUPS = "userSubGroups";
+
 
 }

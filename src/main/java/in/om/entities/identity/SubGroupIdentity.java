@@ -1,4 +1,4 @@
-package in.om.entities;
+package in.om.entities.identity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import lombok.AllArgsConstructor;
@@ -16,7 +16,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreType
-public class RoleIdentity implements Serializable {
+public class SubGroupIdentity implements Serializable {
     private String groupId;
     private String id;
 

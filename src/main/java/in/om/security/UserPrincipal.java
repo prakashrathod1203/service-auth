@@ -1,7 +1,9 @@
 package in.om.security;
 
-import in.om.model.User;
-import org.apache.commons.lang3.StringUtils;
+import in.om.entities.User;
+import in.om.entities.record.UserResource;
+import in.om.utility.CommonUtils;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -11,23 +13,24 @@ import java.util.Collection;
 import java.util.Map;
 
 public class UserPrincipal implements OAuth2User, UserDetails {
+    private static final long serialVersionUID = 1L;
+    @Getter
+    private String loginId;
+    @Getter
+    private String password;
+    @Getter
+    private String fullName;
+    @Getter
+    private UserResource resource;
+
     private Map<String, Object> attributes;
     private Collection<? extends GrantedAuthority> authorities;
-    private Long branchId;
-    private Long clientSystemId;
-    private String fullName;
-    private Long id;
-    private String password;
-    private static final long serialVersionUID = 1L;
-    private String userName;
 
-    public UserPrincipal(Long id, Long branchId, Long clientSystemId, String userName, String fullName, String password, Collection<? extends GrantedAuthority> authorities) {
-        this.id = id;
-        this.branchId = branchId;
-        this.clientSystemId = clientSystemId;
-        this.userName = userName;
-        this.fullName = fullName;
+    public UserPrincipal(String loginId, String password, String fullName, UserResource resource, Collection<? extends GrantedAuthority> authorities) {
+        this.loginId = loginId;
         this.password = password;
+        this.fullName = fullName;
+        this.resource = resource;
         this.authorities = authorities;
     }
 
@@ -37,12 +40,10 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 //            authorities.add(new SimpleGrantedAuthority(types.getName()));
 //        }
         return new UserPrincipal(
-                user.getUserId(),
-                0L,
-                0L,
-                user.getUsername(),
-                "",
+                user.getLoginId(),
                 user.getPassword(),
+                CommonUtils.getFullName(user),
+                user.getResource(),
                 authorities
         );
     }
@@ -53,21 +54,6 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         return userPrincipal;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public Long getBranchId() {
-        return branchId;
-    }
-    public Long getClientSystemId() {
-        return clientSystemId;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
     @Override
     public String getPassword() {
         return password;
@@ -75,7 +61,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return loginId;
     }
 
     @Override
@@ -114,12 +100,8 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 
     @Override
     public String getName() {
-        return String.valueOf(id);
+        return loginId;
     }
 
-    private static String getFullName(User user) {
-        String firstName = StringUtils.isEmpty(user.getFirstName()) ? "" : user.getFirstName();
-        String lastName = StringUtils.isEmpty(user.getFirstName()) ? "" : user.getLastName();
-        return String.format("%s %s", firstName, lastName);
-    }
+
 }

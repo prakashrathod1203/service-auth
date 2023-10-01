@@ -1,17 +1,12 @@
 package in.om.model;
 
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -20,7 +15,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.Length;
 
@@ -36,7 +30,7 @@ import lombok.Setter;
 @Setter
 @DynamicUpdate
 @Transactional
-public class User extends Auditable<String> {
+public class OLDUser extends Auditable<String> {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -110,8 +104,8 @@ public class User extends Auditable<String> {
 	}
 	
 	
-	public User(){}
-	public User(String lastName, Long userId) {
+	public OLDUser(){}
+	public OLDUser(String lastName, Long userId) {
 		this.lastName = lastName;
 		this.userId = userId;
 	}

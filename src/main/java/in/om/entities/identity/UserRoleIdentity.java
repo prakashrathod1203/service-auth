@@ -1,4 +1,4 @@
-package in.om.entities;
+package in.om.entities.identity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import lombok.AllArgsConstructor;
@@ -16,12 +16,13 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreType
-public class SubGroupIdentity implements Serializable {
-    private String groupId;
-    private String id;
+public class UserRoleIdentity implements Serializable {
+
+    private String roleId;
+    private String loginId;
 
     @Override
     public String toString() {
-        return "[ groupId='" + groupId + '\'' + ", id='" + id + '\'' + ']';
+        return "[ roleId='" + roleId + '\'' + ", loginId='" + loginId + '\'' + ']';
     }
 }

@@ -22,7 +22,7 @@ public class UserLoginResponse {
     private String token;
 
     @ApiModelProperty(notes = "userId", example = "01")
-    private Long userId;
+    private String userId;
     @ApiModelProperty(notes = "userName", example = "test.test")
     private String userName;
 }

@@ -1,4 +1,4 @@
-package in.om.entities;
+package in.om.entities.identity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import lombok.AllArgsConstructor;

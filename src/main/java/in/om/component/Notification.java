@@ -1,11 +1,11 @@
-package in.om.services.impl;
+package in.om.component;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import in.om.payload.Mail;
 import in.om.security.JwtUtil;
-import in.om.services.UserService;
+import in.om.services.OLDUserService;
 import in.om.socket.config.SocketSessionRegistry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -15,6 +15,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
@@ -28,7 +29,7 @@ import java.util.Map;
 @Service
 @Log4j2
 @RequiredArgsConstructor
-public class UserNotificationService {
+public class Notification {
 
 
 	@Value("${mail.username}")
@@ -40,7 +41,7 @@ public class UserNotificationService {
 	private final JwtUtil tokenProvider;
 	private final SocketSessionRegistry webAgentSessionRegistry;
 	private final SimpMessagingTemplate simpMessagingTemplate;
-	private final UserService userService;
+	private final OLDUserService userService;
 
     public void sendMail(SimpleMailMessage simpleMailMessage) throws MailException {
         mailSender.send(simpleMailMessage);
@@ -70,7 +71,7 @@ public class UserNotificationService {
 		
 		//Mail Content
 		String subject = "Reset your password";
-		Map<String, Object> model = new HashMap<String, Object>();
+		Map<String, Object> model = new HashMap<>();
         model.put("fromMail", mailSmtpUserName);
         model.put("userName", userName);
         model.put("resetUrl", resetUrl.toString());
@@ -84,7 +85,8 @@ public class UserNotificationService {
 			log.info("Reset Password mail send fail");
 		}
 	}
-    
+
+	@Async
     public void sendNewRegistrationMail(String userName, String fullName) {
 		//Create reset URL
 		StringBuilder resetUrl = new StringBuilder(appURL);
@@ -93,7 +95,7 @@ public class UserNotificationService {
 		
 		//Mail Content
 		String subject = "Invited to new registration";
-		Map<String, Object> model = new HashMap<String, Object>();
+		Map<String, Object> model = new HashMap<>();
         model.put("fromMail", mailSmtpUserName);
         model.put("userName", userName);
         model.put("resetUrl", resetUrl.toString());

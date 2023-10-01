@@ -15,7 +15,7 @@ public class UserLoginRequest {
     @ApiModelProperty(notes = "Password", example = "")
     private String password;
 
-    @JsonProperty("userName")
+    @JsonProperty("username")
     @ApiModelProperty(notes = "User Name", example = "mis.ap")
-    private String userName;
+    private String username;
 }

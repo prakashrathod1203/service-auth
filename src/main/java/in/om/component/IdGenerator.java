@@ -1,5 +1,8 @@
 package in.om.component;
 
+import in.om.dtos.UserDTO;
+import in.om.enums.GroupEnum;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.regex.Matcher;
@@ -25,6 +28,22 @@ public class IdGenerator {
 
     public String getRoleId(String groupId, long count) {
         return String.format("%s|%d",groupId.toUpperCase(), count+1);
+    }
+
+    public String getLoginId(UserDTO userDTO) {
+        StringBuilder loginIdSB = new StringBuilder();
+        userDTO.getResource().getOrganizations().forEach(org -> {
+            org.getGroups().forEach(group -> {
+                group.getSubGroups().forEach(subGroup -> {
+                    if(GroupEnum.DUSM.name().equalsIgnoreCase(group.getId())) {
+                        loginIdSB.append(subGroup.getId().toLowerCase()).append(".").append(userDTO.getExternalUserId().toLowerCase());
+                    } else {
+                        loginIdSB.append(subGroup.getId().toLowerCase()).append(".").append(StringUtils.right(userDTO.getPhone(), 4));
+                    }
+                });
+            });
+        });
+        return loginIdSB.toString();
     }
 
     private String getWordFirstLetter(String str) {

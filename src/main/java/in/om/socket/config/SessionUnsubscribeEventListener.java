@@ -19,7 +19,7 @@ public class SessionUnsubscribeEventListener implements ApplicationListener<Sess
 		String token = header.getFirstNativeHeader("id");
 		if(token != null){
 			TokenDetails tokenDetails = tokenProvider.getTokenDetails(token);
-			webAgentSessionRegistry.unregisterSessionId(token, tokenDetails.getUserName(), header.getSessionId());
+			webAgentSessionRegistry.unregisterSessionId(token, tokenDetails.getLoginId(), header.getSessionId());
 		}
 	}
 }

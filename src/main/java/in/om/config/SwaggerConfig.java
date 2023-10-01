@@ -76,7 +76,7 @@ public class SwaggerConfig {
      */
     @Bean
     public Docket userAPI(ServletContext servletContext) {
-        return new Docket(SWAGGER_2).apiInfo(apiInfo()).groupName("Users")
+        return new Docket(SWAGGER_2).apiInfo(apiInfo()).groupName("User")
                 .useDefaultResponseMessages(false)
                 .securitySchemes(Arrays.asList(apiKey()))
                 .securityContexts(Arrays.asList(securityContext()))

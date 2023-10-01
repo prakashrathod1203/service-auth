@@ -4,8 +4,9 @@ package in.om.security;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import in.om.component.TenantContext;
 import in.om.component.Translator;
+import in.om.entities.record.Organization;
 import in.om.response.ResponseBody;
-import in.om.services.UserService;
+import in.om.services.CustomUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -21,6 +22,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
@@ -33,22 +35,21 @@ public class RequestFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
     private final ObjectMapper objectMapper;
-    private final UserService userService;
+    private final CustomUserDetailsService customUserDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException, BadCredentialsException {
         final String requestTokenHeader = request.getHeader(JwtUtil.AUTHORIZATION);
         TokenDetails tokenDetails = null;
         String jwtToken = null;
-        TenantContext.setCurrentOrganizationId("OM");
-        // JWT Token is in the form "Bearer token". Remove Bearer word and get only the Token
 
+        // JWT Token is in the form "Bearer token". Remove Bearer word and get only the Token
         if (requestTokenHeader != null && requestTokenHeader.startsWith(JwtUtil.BEARER)) {
             jwtToken = requestTokenHeader.substring(7);
             try {
                 tokenDetails = jwtUtil.getTokenDetails(jwtToken);
-                //Tenant
-                //TenantContext.setCurrentTenantId(tokenDetails.getSystemClientId());
+                List<Organization> organizations = tokenDetails.getResource().getOrganizations();
+                TenantContext.setCurrentOrganizationId(organizations.get(0).getId());
             } catch (IllegalArgumentException e) {
                 handleException(response, Translator.toLocale("auth.invalid.username-password"));
                 return;
@@ -60,9 +61,9 @@ public class RequestFilter extends OncePerRequestFilter {
 
         //Once we get the token validate it.
         if (tokenDetails != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            var userDetails = userService.loadUserByUsername(tokenDetails.getUserName());
+            var userDetails = customUserDetailsService.loadUserByUsername(tokenDetails.getLoginId());
             // if token is valid configure Spring Security to manually set authentication
-            if (jwtUtil.validateToken(jwtToken, userDetails)) {
+            if (jwtUtil.validateToken(jwtToken, tokenDetails, userDetails)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken
