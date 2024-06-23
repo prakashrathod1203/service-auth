@@ -1,0 +1,27 @@
+<configuration scan="true" scanPeriod="15 seconds">
+    <!-- Regular logging configuration to run locally -->
+    <springProperty name="sarthee.application" source="application.tenant.id" scope="context"/>
+    <springProperty name="sarthee.environment" source="spring.profiles.active" scope="context"/>
+
+    <appender name="jsonConsole" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <!-- <jsonGeneratorDecorator class="net.logstash.logback.decorate.PrettyPrintingJsonGeneratorDecorator" /> -->
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="jsonConsole"/>
+    </root>
+
+    <logger name="org.hibernate.SQL" level="OFF" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="OFF" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+</configuration>

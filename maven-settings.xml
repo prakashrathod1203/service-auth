@@ -1,0 +1,23 @@
+<settings>
+  <profiles>
+<!--    <profile>-->
+<!--      <id>${env.TS_MAVEN_PROFILE_ID}</id>-->
+<!--      <activation>-->
+<!--        <activeByDefault>true</activeByDefault>-->
+<!--      </activation>-->
+<!--      <repositories>-->
+<!--        <repository>-->
+<!--          <id>${env.TS_MAVEN_REPO_ID}</id>-->
+<!--          <url>${env.TS_MAVEN_REPO_URL}</url>-->
+<!--        </repository>-->
+<!--      </repositories>-->
+<!--    </profile>-->
+  </profiles>
+  <servers>
+    <server>
+      <id>${env.TS_MAVEN_SERVER_ID}</id>
+      <username>${env.TS_MAVEN_SERVER_USERNAME}</username>
+      <password>${env.TS_MAVEN_SERVER_PASSWORD}</password>
+    </server>
+  </servers>
+</settings>

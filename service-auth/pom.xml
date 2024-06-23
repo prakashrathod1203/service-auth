@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.2.5</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	
+	<groupId>tech.sarthee.auth</groupId>
+	<artifactId>service-auth</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Auth Service</name>
+	<description>Auth Service API</description>
+	<packaging>jar</packaging>
+	
+	<properties>
+		<java.version>17</java.version>
+		<application.main.class>tech.sarthee.auth.AuthService</application.main.class>
+		<com.google.zxing>3.5.3</com.google.zxing>
+		<auth.library.version>0.0.1-SNAPSHOT</auth.library.version>
+	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>tech.sarthee.auth</groupId>
+			<artifactId>library-auth</artifactId>
+			<version>${auth.library.version}</version>
+		</dependency>
+
+
+		<!-- SPRING BOOT Dependencies-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- DATABASE Dependencies -->
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<version>8.0.33</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
+
+		<!-- Swagger-UI  Dependencies -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+
+		<!-- LOMBOK Dependencies -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

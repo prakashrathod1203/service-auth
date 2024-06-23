@@ -1,22 +1,33 @@
-build
-stage
-.svn
-.gradle
-deploy/SLA.war/WEB-INF/classes
-.idea
-META-INF
-lib
-.metadata/
-RemoteSystemsTempFiles/
-myls.iml
-out/
-/bin/
-.settings/
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+
+### STS ###
+.apt_generated
 .classpath
+.factorypath
 .project
-/caches/
-/native/
-/wrapper/
-/daemon/
-/target/
-/log/*.log
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/

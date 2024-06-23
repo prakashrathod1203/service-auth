@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  database:
+    image: mysql:8.0
+    container_name: ${COMPOSE_PROJECT_NAME}-database
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${COMPOSE_PROJECT_NAME}
+      MYSQL_USER: ${COMPOSE_PROJECT_NAME}
+      MYSQL_PASSWORD: ${COMPOSE_PROJECT_NAME}
+      MYSQL_ROOT_PASSWORD: ${COMPOSE_PROJECT_NAME}
+    ports:
+      - '3306:3306'
+    volumes:
+      - db:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+volumes:
+  db:
+    driver: local
