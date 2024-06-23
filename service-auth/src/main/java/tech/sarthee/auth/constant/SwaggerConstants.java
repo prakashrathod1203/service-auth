@@ -5,9 +5,24 @@ public class SwaggerConstants {
     private SwaggerConstants() {
     }
 
-    public static final String GENERATE_QR_TAG = "Generate QR Code";
+    public static final String MASTER_TAG = "Master";
     public static final String QR_MAPPING_AND_DETAIL_TAG = "QR Code Mapping & Detail";
     public static final String FILE_MANAGER_TAG = "File Manager";
+
+    public static final String CREATE_ORG_SUMMARY = "Create Organization";
+    public static final String CREATE_ORG_DESCRIPTION = "Create new Organization";
+    public static final String UPDATE_ORG_SUMMARY = "Update Organization";
+    public static final String UPDATE_ORG_DESCRIPTION = "Update existing Organization";
+    public static final String DELETE_ORG_SUMMARY = "Delete Organization";
+    public static final String DELETE_ORG_DESCRIPTION = "Delete Organization";
+    public static final String FETCH_ORG_BY_ID_SUMMARY = "Fetch Organization";
+    public static final String FETCH_ORG_BY_ID_DESCRIPTION = "Fetch Organization by id";
+    public static final String FETCH_ORG_SUMMARY = "Fetch Organization";
+    public static final String FETCH_ORG_DESCRIPTION = "Fetch All Organizations";
+
+
+
+
 
     public static final String DOWNLOAD_FILE_BY_ID_SUMMARY = "Download File";
     public static final String DOWNLOAD_FILE_BY_ID_DESCRIPTION = "Download File By Resource Id";

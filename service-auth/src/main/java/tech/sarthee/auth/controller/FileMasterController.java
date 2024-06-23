@@ -76,7 +76,7 @@ public class FileMasterController {
     @Operation(
             summary = SwaggerConstants.DOWNLOAD_FILE_BY_ID_SUMMARY,
             description = SwaggerConstants.DOWNLOAD_FILE_BY_ID_DESCRIPTION,
-            tags = {SwaggerConstants.GENERATE_QR_TAG, SwaggerConstants.FILE_MANAGER_TAG}
+            tags = {SwaggerConstants.FILE_MANAGER_TAG}
     )
     @GetMapping(
             value = ResourceEndpoint.FILE_DOWNLOAD,

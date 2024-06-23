@@ -40,6 +40,6 @@ public class OrganizationEntity extends Auditable<Long> {
     @Column(name = "contact_number")
     private String contactNumber;
 
-    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<GroupEntity> groups;
 }

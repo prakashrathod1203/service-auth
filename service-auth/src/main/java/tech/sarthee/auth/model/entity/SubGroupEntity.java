@@ -1,5 +1,6 @@
 package tech.sarthee.auth.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -57,11 +58,13 @@ public class SubGroupEntity extends Auditable<Long>  {
             @JoinColumn(name = "organization_id", referencedColumnName = "organization_id", insertable = false, updatable = false),
             @JoinColumn(name = "group_id", referencedColumnName = "group_id", insertable = false, updatable = false)
     })
+    @JsonIgnore
     private GroupEntity group;
 
     @OneToMany(mappedBy = "subGroup", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RoleEntity> roles;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "subGroup", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserEntity> users;
 }

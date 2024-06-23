@@ -46,15 +46,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse fetch(String mobileNo) throws ResourceNotFoundException {
-        log.debug("Fetching user with mobileNo: {}", mobileNo);
-        UserEntity userEntity = userRepository.findById(mobileNo)
-                .orElseThrow(() -> {
-                    log.error("User not found with mobileNo: {}", mobileNo);
-                    return new ResourceNotFoundException(Translator.toLocale("error.resourceNotFound"));
-                });
-
-        UserResponse userResponse = CommonUtils.objectToPojoConverter(userEntity, UserResponse.class);
-        log.debug("User fetched successfully with mobileNo: {}", mobileNo);
-        return userResponse;
+//        log.debug("Fetching user with mobileNo: {}", mobileNo);
+//        UserEntity userEntity = userRepository.findById(mobileNo)
+//                .orElseThrow(() -> {
+//                    log.error("User not found with mobileNo: {}", mobileNo);
+//                    return new ResourceNotFoundException(Translator.toLocale("error.resourceNotFound"));
+//                });
+//
+//        UserResponse userResponse = CommonUtils.objectToPojoConverter(userEntity, UserResponse.class);
+//        log.debug("User fetched successfully with mobileNo: {}", mobileNo);
+//        return userResponse;
+        return null;
     }
 }

@@ -5,7 +5,9 @@ public class ResourceEndpoint {
     private ResourceEndpoint() {
     }
 
-    public static final String BASE_ROUTE_V1 = "/api/qrcode/v1";
+    public static final String BASE_ROUTE_V1 = "/api/auth/v1";
+
+    public static final String ORGANIZATION = BASE_ROUTE_V1 + "/org";
 
     public static final String URL = BASE_ROUTE_V1 + "/url";
 

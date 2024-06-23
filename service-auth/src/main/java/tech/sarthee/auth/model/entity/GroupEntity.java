@@ -1,5 +1,6 @@
 package tech.sarthee.auth.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -38,6 +39,7 @@ public class GroupEntity extends Auditable<Long> {
 
     @ManyToOne
     @JoinColumn(name = "organization_id", insertable = false, updatable = false)
+    @JsonIgnore
     private OrganizationEntity organization;
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)

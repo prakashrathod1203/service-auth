@@ -1,6 +1,7 @@
 package tech.sarthee.auth.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,6 +42,7 @@ public class UserRoleEntity {
             @JoinColumn(name = "sub_group_id", referencedColumnName = "sub_group_id", insertable = false, updatable = false),
             @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
     })
+    @JsonIgnore
     private UserEntity user;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -6,11 +6,16 @@ import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededExceptio
 import org.apache.tomcat.util.http.fileupload.impl.SizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import tech.sarthee.auth.library.exception.ResourceNotFoundException;
 import tech.sarthee.auth.library.model.dto.response.RestApiResponse;
@@ -69,6 +74,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public final ResponseEntity<Object> handleFileSizeLimitExceededException(Exception exception) {
         logException(exception, Exception.class);
         RestApiResponse response = new RestApiResponse("file.master.file.size.too.large", null, false);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+        String error = ex.getBindingResult().getAllErrors().stream().map(ObjectError::getDefaultMessage).findFirst().orElse("");
+        logException(ex, MethodArgumentNotValidException.class);
+        RestApiResponse response = new RestApiResponse(error, null, false);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
