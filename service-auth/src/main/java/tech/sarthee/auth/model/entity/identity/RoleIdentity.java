@@ -22,4 +22,13 @@ public class RoleIdentity implements Serializable {
     private String groupId;
     private String subGroupId;
     private String roleId;
+
+    @Override
+    public String toString() {
+        return "{ organizationId: " + organizationId
+                + ", groupId: " + groupId
+                + ", subGroupId: " + subGroupId
+                + ", roleId: " + roleId
+                + " }";
+    }
 }

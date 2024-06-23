@@ -5,6 +5,9 @@ import org.springframework.stereotype.Repository;
 import tech.sarthee.auth.model.entity.GroupEntity;
 import tech.sarthee.auth.model.entity.identity.GroupIdentity;
 
+import java.util.List;
+
 @Repository
 public interface GroupRepository extends JpaRepository<GroupEntity, GroupIdentity> {
+    List<GroupEntity> findByOrganizationId(String organizationId);
 }

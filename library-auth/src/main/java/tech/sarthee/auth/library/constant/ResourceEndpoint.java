@@ -8,6 +8,9 @@ public class ResourceEndpoint {
     public static final String BASE_ROUTE_V1 = "/api/auth/v1";
 
     public static final String ORGANIZATION = BASE_ROUTE_V1 + "/org";
+    public static final String GROUP = ORGANIZATION + "/group";
+    public static final String SUB_GROUP = GROUP + "/subGroup";
+    public static final String ROLE = SUB_GROUP + "/role";
 
     public static final String URL = BASE_ROUTE_V1 + "/url";
 

@@ -1,7 +1,6 @@
 package tech.sarthee.auth.model.entity.identity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,4 +21,13 @@ public class UserIdentity implements Serializable {
     private String groupId;
     private String subGroupId;
     private String userId;
+
+    @Override
+    public String toString() {
+        return "{ organizationId: " + organizationId
+                + ", groupId: " + groupId
+                + ", subGroupId: " + subGroupId
+                + ", userId: " + userId
+                + " }";
+    }
 }

@@ -21,4 +21,12 @@ public class SubGroupIdentity implements Serializable {
     private String organizationId;
     private String groupId;
     private String subGroupId;
+
+    @Override
+    public String toString() {
+        return "{ organizationId: " + organizationId
+                + ", groupId: " + groupId
+                + ", subGroupId: " + subGroupId
+                + " }";
+    }
 }

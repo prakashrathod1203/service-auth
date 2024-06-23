@@ -32,7 +32,7 @@ public class OrganizationController {
     @Operation(
             summary = SwaggerConstants.CREATE_ORG_SUMMARY,
             description = SwaggerConstants.CREATE_ORG_DESCRIPTION,
-            tags = {SwaggerConstants.MASTER_TAG}
+            tags = {SwaggerConstants.MASTER_ORG_TAG}
     )
     @PostMapping(
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -54,18 +54,17 @@ public class OrganizationController {
     @Operation(
             summary = SwaggerConstants.UPDATE_ORG_SUMMARY,
             description = SwaggerConstants.UPDATE_ORG_DESCRIPTION,
-            tags = {SwaggerConstants.MASTER_TAG}
+            tags = {SwaggerConstants.MASTER_ORG_TAG}
     )
     @PutMapping(
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<?> update(
-            @RequestParam(value = "organization_id", required = true) String organizationId,
             @Valid @RequestBody OrganizationRequest request
     ) throws ResourceNotFoundException {
-        log.debug("Received request to update organization with id: {} and request: {}", organizationId, request);
-        var organizationResponse = organizationService.updateOrganization(organizationId, request);
+        log.debug("Received request to update organization with request: {}", request);
+        var organizationResponse = organizationService.updateOrganization(request.getOrganizationId(), request);
         var response = new RestApiResponse(Translator.toLocale("operation.update"), organizationResponse, true);
         log.info("Organization update successfully: {}", response);
         return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -77,13 +76,13 @@ public class OrganizationController {
     @Operation(
             summary = SwaggerConstants.DELETE_ORG_SUMMARY,
             description = SwaggerConstants.DELETE_ORG_DESCRIPTION,
-            tags = {SwaggerConstants.MASTER_TAG}
+            tags = {SwaggerConstants.MASTER_ORG_TAG}
     )
     @DeleteMapping(
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<?> delete(
-            @RequestParam(value = "organization_id", required = true) String organizationId
+            @RequestParam(value = "organization_id") String organizationId
     ) throws ResourceNotFoundException {
         log.debug("Received request to delete organization with id: {}", organizationId);
         organizationService.deleteOrganization(organizationId);
@@ -98,7 +97,7 @@ public class OrganizationController {
     @Operation(
             summary = SwaggerConstants.FETCH_ORG_BY_ID_SUMMARY,
             description = SwaggerConstants.FETCH_ORG_BY_ID_DESCRIPTION,
-            tags = {SwaggerConstants.MASTER_TAG}
+            tags = {SwaggerConstants.MASTER_ORG_TAG}
     )
     @GetMapping(
             path = "/{organization_id}",
@@ -110,7 +109,7 @@ public class OrganizationController {
         log.info("Received request to fetch organization with id: {}", organizationId);
 
         var organizationResponse = organizationService.fetchOrganizationById(organizationId);
-        RestApiResponse response = new RestApiResponse(Translator.toLocale("operation.get"), organizationResponse, true);
+        var response = new RestApiResponse(Translator.toLocale("operation.get"), organizationResponse, true);
         log.info("Organization fetched successfully with id: {}", organizationId);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
@@ -121,7 +120,7 @@ public class OrganizationController {
     @Operation(
             summary = SwaggerConstants.FETCH_ORG_SUMMARY,
             description = SwaggerConstants.FETCH_ORG_DESCRIPTION,
-            tags = {SwaggerConstants.MASTER_TAG}
+            tags = {SwaggerConstants.MASTER_ORG_TAG}
     )
     @GetMapping(
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -130,8 +129,8 @@ public class OrganizationController {
     ){
         log.debug("Received request to fetch all organizations");
         var organizationsResponse = organizationService.fetchAllOrganizations();
-        RestApiResponse response = new RestApiResponse(Translator.toLocale("operation.getList"), organizationsResponse, true);
-        log.info("Organizations fetched successfully: {}", response);
+        var response = new RestApiResponse(Translator.toLocale("operation.getList"), organizationsResponse, true);
+        log.info("Organizations fetched successfully");
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

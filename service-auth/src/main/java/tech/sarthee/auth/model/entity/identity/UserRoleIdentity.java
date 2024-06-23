@@ -19,4 +19,15 @@ public class UserRoleIdentity implements Serializable {
     private String subGroupId;
     private String userId;
     private String roleId;
+
+    @Override
+    public String toString() {
+        return "{ organizationId: " + organizationId
+                + ", groupId: " + groupId
+                + ", subGroupId: " + subGroupId
+                + ", userId: " + userId
+                + ", roleId: " + roleId
+                + " }";
+    }
+
 }
