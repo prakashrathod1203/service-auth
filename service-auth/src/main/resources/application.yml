@@ -5,7 +5,7 @@ application:
   tenant:
     id: service-auth-local
 server:
-  port: 8080
+  port: 8081
 spring:
   application:
     name: service-auth
@@ -14,7 +14,7 @@ spring:
 ##########################################
   datasource:
     password: ${application.tenant.id}
-    url: jdbc:mysql://localhost:3306/${application.tenant.id}?useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3307/${application.tenant.id}?useSSL=false&allowPublicKeyRetrieval=true
     username: root
     driver-class-name: com.mysql.cj.jdbc.Driver
   flyway:
@@ -46,7 +46,7 @@ logging:
     ROOT: INFO
     org.hibernate.SQL: OFF
     org.hibernate.type.descriptor.sql.BasicBinder: OFF
-    tech.sarthee.auth: DEBUG
+    om.auth: DEBUG
 ##########################################
 ########## File Properties ###########
 ##########################################

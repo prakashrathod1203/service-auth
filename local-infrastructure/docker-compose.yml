@@ -13,7 +13,7 @@ services:
       MYSQL_PASSWORD: ${COMPOSE_PROJECT_NAME}
       MYSQL_ROOT_PASSWORD: ${COMPOSE_PROJECT_NAME}
     ports:
-      - '3306:3306'
+      - '3307:3306'
     volumes:
       - db:/var/lib/mysql
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
