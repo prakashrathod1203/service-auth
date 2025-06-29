@@ -15,9 +15,8 @@ public class OpenApiConfig {
                 return new OpenAPI()
                                 .info(new Info().title("Service Auth").version("1.0")
                                                 .description("Service Auth API(s)"))
-                                .tags(List.of(new Tag()
-                                                .name(SwaggerConstants.CREATE_ORG_DESCRIPTION)
-                                                .description("Operations related to languages"))
+                                .tags(List.of(new Tag().name(SwaggerConstants.ROLE_SCOPE_TAG)
+                                                .description("Operations related to Role Scope"))
 
 
 
