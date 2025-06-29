@@ -7,14 +7,17 @@ public class ResourceEndpoint {
     public static final String BASE_ROUTE_V1 = "/api/auth/v1";
 
     public static final String ROLE_SCOPE = BASE_ROUTE_V1 + "/roleScope";
+    public static final String ROLE = BASE_ROUTE_V1 + "/role";
 
     public static final String PATH_ROLE_SCOPE_ID = "/{roleScopeId}";
     public static final String ROLE_SCOPE_FILTER = "/filter";
 
+    public static final String PATH_ROLE_ID = "/{roleId}";
+    public static final String ROLE_FILTER = "/filter";
+
 
     public static final String GROUP = "/group";
     public static final String SUB_GROUP = GROUP + "/subGroup";
-    public static final String ROLE = SUB_GROUP + "/role";
 
     public static final String URL = BASE_ROUTE_V1 + "/url";
 

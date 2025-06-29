@@ -16,9 +16,9 @@ public class OpenApiConfig {
                                 .info(new Info().title("Service Auth").version("1.0")
                                                 .description("Service Auth API(s)"))
                                 .tags(List.of(new Tag().name(SwaggerConstants.ROLE_SCOPE_TAG)
-                                                .description("Operations related to Role Scope"))
-
-
+                                                .description("Operations related to Role Scope"),
+                                                new Tag().name(SwaggerConstants.ROLE_TAG)
+                                                                .description("Operations related to Role"))
 
                                 );
         }

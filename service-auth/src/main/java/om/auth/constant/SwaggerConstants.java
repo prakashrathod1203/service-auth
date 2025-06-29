@@ -5,6 +5,7 @@ public class SwaggerConstants {
         private SwaggerConstants() {}
 
         public static final String ROLE_SCOPE_TAG = "1 - Role Scope";
+        public static final String ROLE_TAG = "2 - Role";
 
         public static final String FILE_MANAGER_TAG = "File Manager";
 
@@ -18,6 +19,19 @@ public class SwaggerConstants {
         public static final String FETCH_ROLE_SCOPE_BY_ID_DESCRIPTION = "Fetch Role Scope by id";
         public static final String FETCH_ROLE_SCOPE_SUMMARY = "Fetch Role Scope";
         public static final String FETCH_ROLE_SCOPE_DESCRIPTION = "Fetch All Role Scopes";
+
+        public static final String CREATE_ROLE_SUMMARY = "Create Role";
+        public static final String CREATE_ROLE_DESCRIPTION = "Create new Role";
+        public static final String UPDATE_ROLE_SUMMARY = "Update Role";
+        public static final String UPDATE_ROLE_DESCRIPTION = "Update existing Role";
+        public static final String DELETE_ROLE_SUMMARY = "Delete Role";
+        public static final String DELETE_ROLE_DESCRIPTION = "Delete Role";
+        public static final String FETCH_ROLE_BY_ID_SUMMARY = "Fetch Role";
+        public static final String FETCH_ROLE_BY_ID_DESCRIPTION = "Fetch Role by id";
+        public static final String FETCH_ROLE_SUMMARY = "Fetch Role";
+        public static final String FETCH_ROLE_DESCRIPTION = "Fetch All Roles";
+
+
 
         public static final String CREATE_ROLE_SCOPE_GROUP_SUMMARY = "Create Group";
         public static final String CREATE_ROLE_SCOPE_GROUP_DESCRIPTION = "Create new Group";

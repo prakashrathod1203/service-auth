@@ -1,7 +1,9 @@
 package om.auth.exception;
 
-import jakarta.validation.ConstraintViolationException;
-import lombok.extern.log4j.Log4j2;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.sql.SQLException;
+import java.sql.SQLSyntaxErrorException;
 import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.apache.tomcat.util.http.fileupload.impl.SizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,13 +19,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import jakarta.validation.ConstraintViolationException;
+import lombok.extern.log4j.Log4j2;
+import om.auth.library.exception.ResourceAlreadyExistsException;
 import om.auth.library.exception.ResourceNotFoundException;
 import om.auth.library.model.dto.response.RestApiResponse;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.sql.SQLException;
-import java.sql.SQLSyntaxErrorException;
 
 @RestControllerAdvice
 @Log4j2
@@ -37,6 +37,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public final ResponseEntity<RestApiResponse> handleConstraintViolationException(
             ConstraintViolationException exception) {
         logException(exception, ConstraintViolationException.class);
+        RestApiResponse response =
+                new RestApiResponse(exception.getLocalizedMessage(), null, false);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
+
+    @ExceptionHandler(ResourceAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public final ResponseEntity<RestApiResponse> handleResourceAlreadyExistsException(
+            ResourceAlreadyExistsException exception) {
+        logException(exception, ResourceAlreadyExistsException.class);
         RestApiResponse response =
                 new RestApiResponse(exception.getLocalizedMessage(), null, false);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
