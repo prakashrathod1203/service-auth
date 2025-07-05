@@ -1,10 +1,8 @@
 package om.auth.library.model.dto.response.role;
 
-import java.util.List;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import om.auth.library.model.dto.response.AuditableResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -13,13 +11,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @ToString
-public class RoleResponse extends AuditableResponse {
-    private Long roleId;
-    private Integer roleScopeId;
-    private Integer organizationId;
+public class PermissionResponse {
+    private Long permissionId;
     private String name;
+    private String resourceName;
     private String title;
     private String description;
-    private RoleScopeResponse roleScope;
-    private List<PermissionResponse> permissions;
 }

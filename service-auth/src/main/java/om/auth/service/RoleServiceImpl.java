@@ -1,5 +1,6 @@
 package om.auth.service;
 
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -14,10 +15,11 @@ import om.auth.library.model.dto.request.filter.GenericFilterRequest;
 import om.auth.library.model.dto.request.role.RoleRequest;
 import om.auth.library.model.dto.response.role.RoleResponse;
 import om.auth.library.util.CommonUtils;
+import om.auth.model.entity.PermissionEntity;
 import om.auth.model.entity.RoleEntity;
 import om.auth.repository.RoleRepository;
+import om.auth.repository.RoleScopeRepository;
 import om.auth.util.Translator;
-
 
 @Slf4j
 @Service
@@ -25,6 +27,7 @@ import om.auth.util.Translator;
 public class RoleServiceImpl implements RoleService {
 
         private final RoleRepository roleRepository;
+        private final RoleScopeRepository roleScopeRepository;
         private final RoleHelper roleHelper;
 
         @Override
@@ -37,10 +40,26 @@ public class RoleServiceImpl implements RoleService {
                         throw new ResourceAlreadyExistsException(
                                         Translator.toLocale("operation.exists"));
                 }
+                var dbRoleScopeEntity = roleScopeRepository.findById(request.roleScopeId())
+                                .orElseThrow(() -> new ResourceNotFoundException(
+                                                Translator.toLocale("error.resourceNotFound")));
                 var roleEntity = CommonUtils.objectToPojoConverter(request, RoleEntity.class);
-                roleEntity = roleRepository.save(roleEntity);
-                log.debug("Role created successfully with id: {}", roleEntity.getRoleId());
-                return roleHelper.convertRoleResponse(roleEntity);
+                roleEntity.setRoleScope(dbRoleScopeEntity);
+                if (request.permissions() != null && !request.permissions().isEmpty()) {
+                        List<PermissionEntity> permissionEntities =
+                                        request.permissions().stream().map(tr -> {
+                                                var permission = CommonUtils.objectToPojoConverter(
+                                                                tr, PermissionEntity.class);
+                                                permission.setRole(roleEntity);
+                                                return permission;
+                                        }).toList();
+
+                        roleEntity.setPermissions(permissionEntities);
+                }
+
+                var dbRoleEntity = roleRepository.save(roleEntity);
+                log.debug("Role created successfully with id: {}", dbRoleEntity.getRoleId());
+                return roleHelper.convertRoleResponse(dbRoleEntity);
         }
 
         @Override
@@ -50,14 +69,29 @@ public class RoleServiceImpl implements RoleService {
                 var dbRoleEntity = roleRepository.findById(id)
                                 .orElseThrow(() -> new ResourceNotFoundException(
                                                 Translator.toLocale("error.resourceNotFound")));
+                var dbRoleScopeEntity = roleScopeRepository.findById(request.roleScopeId())
+                                .orElseThrow(() -> new ResourceNotFoundException(
+                                                Translator.toLocale("error.resourceNotFound")));
                 var roleEntity = CommonUtils.objectToPojoConverter(request, RoleEntity.class);
                 roleEntity.setRoleId(dbRoleEntity.getRoleId());
                 roleEntity.setName(dbRoleEntity.getName());
                 roleEntity.setOrganizationId(dbRoleEntity.getOrganizationId());
+                roleEntity.setRoleScope(dbRoleScopeEntity);
+                if (request.permissions() != null && !request.permissions().isEmpty()) {
+                        List<PermissionEntity> permissionEntities =
+                                        request.permissions().stream().map(tr -> {
+                                                var permission = CommonUtils.objectToPojoConverter(
+                                                                tr, PermissionEntity.class);
+                                                permission.setRole(roleEntity);
+                                                return permission;
+                                        }).toList();
 
-                roleEntity = roleRepository.save(roleEntity);
-                log.debug("Role updated successfully with id: {}", roleEntity.getRoleId());
-                return roleHelper.convertRoleResponse(roleEntity);
+                        roleEntity.setPermissions(permissionEntities);
+                }
+
+                var dbUpdatedRoleEntity = roleRepository.save(roleEntity);
+                log.debug("Role updated successfully with id: {}", dbUpdatedRoleEntity.getRoleId());
+                return roleHelper.convertRoleResponse(dbUpdatedRoleEntity);
         }
 
         @Override
