@@ -6,6 +6,7 @@ public class SwaggerConstants {
 
         public static final String ROLE_SCOPE_TAG = "1 - Role Scope";
         public static final String ROLE_TAG = "2 - Role";
+        public static final String USER_TAG = "3 - User";
 
         public static final String FILE_MANAGER_TAG = "File Manager";
 
@@ -30,6 +31,17 @@ public class SwaggerConstants {
         public static final String FETCH_ROLE_BY_ID_DESCRIPTION = "Fetch Role by id";
         public static final String FETCH_ROLE_SUMMARY = "Fetch Role";
         public static final String FETCH_ROLE_DESCRIPTION = "Fetch All Roles";
+
+        public static final String CREATE_USER_SUMMARY = "Create User";
+        public static final String CREATE_USER_DESCRIPTION = "Create new User";
+        public static final String UPDATE_USER_SUMMARY = "Update User";
+        public static final String UPDATE_USER_DESCRIPTION = "Update existing User";
+        public static final String DELETE_USER_SUMMARY = "Delete User";
+        public static final String DELETE_USER_DESCRIPTION = "Delete User";
+        public static final String FETCH_USER_BY_ID_SUMMARY = "Fetch User";
+        public static final String FETCH_USER_BY_ID_DESCRIPTION = "Fetch User by id";
+        public static final String FETCH_USER_SUMMARY = "Fetch User";
+        public static final String FETCH_USER_DESCRIPTION = "Fetch All Users";
 
 
 
@@ -95,8 +107,4 @@ public class SwaggerConstants {
         public static final String FETCH_USER_DETAIL_BY_MOBILE_NO_SUMMARY = "Fetch User Detail";
         public static final String FETCH_USER_DETAIL_BY_MOBILE_NO_DESCRIPTION =
                         "Fetch User Detail By Mobile No";
-
-        public static final String CREATE_USER_SUMMARY = "Create User";
-        public static final String CREATE_USER_DESCRIPTION = "Create User Profile";
-
 }

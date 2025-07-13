@@ -11,7 +11,7 @@ public record RoleRequest(@NotNull(message = "{role.roleScopeId.required}") Inte
         @NotEmpty(message = "{role.title.required}") String title, String description,
         @Valid List<PermissionRequest> permissions, Boolean isDeleted) {
     public RoleRequest(Integer roleScopeId, Integer organizationId, String name, String title,
-            List<PermissionRequest> permissions) {
-        this(roleScopeId, organizationId, name, title, null, permissions, Boolean.FALSE);
+            String description, List<PermissionRequest> permissions) {
+        this(roleScopeId, organizationId, name, title, description, permissions, Boolean.FALSE);
     }
 }

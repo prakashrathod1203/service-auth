@@ -61,5 +61,4 @@ public class RoleEntity extends Auditable<Long> {
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<PermissionEntity> permissions = new ArrayList<>();
-
 }

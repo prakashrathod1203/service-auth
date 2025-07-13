@@ -9,19 +9,23 @@ public class ResourceEndpoint {
     public static final String ROLE_SCOPE = BASE_ROUTE_V1 + "/roleScope";
     public static final String ROLE = BASE_ROUTE_V1 + "/role";
 
+
     public static final String PATH_ROLE_SCOPE_ID = "/{roleScopeId}";
     public static final String ROLE_SCOPE_FILTER = "/filter";
 
     public static final String PATH_ROLE_ID = "/{roleId}";
     public static final String ROLE_FILTER = "/filter";
 
+    public static final String USER = BASE_ROUTE_V1 + "/user";
+    public static final String PATH_USER_ID = "/{userId}";
+    public static final String USER_FILTER = "/filter";
 
     public static final String GROUP = "/group";
     public static final String SUB_GROUP = GROUP + "/subGroup";
 
     public static final String URL = BASE_ROUTE_V1 + "/url";
 
-    public static final String USER = BASE_ROUTE_V1 + "/user";
+
 
     public static final String QR = BASE_ROUTE_V1 + "/qr";
     public static final String QR_LIST = "/list";
