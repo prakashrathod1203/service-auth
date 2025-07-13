@@ -17,8 +17,10 @@ import om.auth.library.model.dto.request.user.UserRequest;
 import om.auth.library.model.dto.response.user.UserResponse;
 import om.auth.library.util.CommonUtils;
 import om.auth.model.entity.RoleEntity;
+import om.auth.model.entity.TileEntity;
 import om.auth.model.entity.UserEntity;
 import om.auth.repository.RoleRepository;
+import om.auth.repository.TileRepository;
 import om.auth.repository.UserRepository;
 import om.auth.util.Translator;
 
@@ -29,6 +31,7 @@ public class UserServiceImpl implements UserService {
 
         private final UserRepository userRepository;
         private final RoleRepository roleRepository;
+        private final TileRepository tileRepository;
         private final UserHelper userHelper;
 
         @Override
@@ -42,6 +45,7 @@ public class UserServiceImpl implements UserService {
                 }
                 var userEntity = CommonUtils.objectToPojoConverter(request, UserEntity.class);
                 userEntity.setRoles(fetchRolesByIds(request.roleIds()));
+                userEntity.setTiles(fetchTilesByIds(request.tileIds()));
                 userEntity.setResource("{}");
 
                 userEntity = userRepository.save(userEntity);
@@ -59,22 +63,11 @@ public class UserServiceImpl implements UserService {
                 var userEntity = CommonUtils.objectToPojoConverter(request, UserEntity.class);
                 userEntity.setUserId(dbUserEntity.getUserId());
                 userEntity.setLoginId(dbUserEntity.getLoginId());
-                if (request.roleIds() != null && !request.roleIds().isEmpty()) {
-                        List<RoleEntity> roleEntities = request.roleIds().stream().map(roleId -> {
-                                var roleEntity = roleRepository.findById(roleId);
-                                if (roleEntity.isPresent()) {
-                                        return roleEntity.get();
-                                } else {
-                                        log.warn("Role with id {} not found, skipping", roleId);
-                                        return null;
-                                }
-                        }).filter(role -> role != null).toList();
-                        userEntity.setRoles(roleEntities);
-                }
-
-                var dbUpdatedUserEntity = userRepository.save(userEntity);
-                log.debug("User updated successfully with id: {}", dbUpdatedUserEntity.getUserId());
-                return userHelper.convertUserResponse(dbUpdatedUserEntity);
+                userEntity.setRoles(fetchRolesByIds(request.roleIds()));
+                userEntity.setTiles(fetchTilesByIds(request.tileIds()));
+                userEntity = userRepository.save(userEntity);
+                log.debug("User updated successfully with id: {}", userEntity.getUserId());
+                return userHelper.convertUserResponse(userEntity);
         }
 
         @Override
@@ -115,6 +108,12 @@ public class UserServiceImpl implements UserService {
                 if (roleIds == null || roleIds.isEmpty())
                         return Collections.emptyList();
                 return roleRepository.findAllById(roleIds);
+        }
+
+        private List<TileEntity> fetchTilesByIds(List<Integer> tileIds) {
+                if (tileIds == null || tileIds.isEmpty())
+                        return Collections.emptyList();
+                return tileRepository.findAllById(tileIds);
         }
 
 

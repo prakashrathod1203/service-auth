@@ -39,3 +39,13 @@ CREATE TABLE user_role_mapping (
     FOREIGN KEY (role_id) REFERENCES role(role_id),
     UNIQUE (user_id, role_id)
 );
+
+CREATE TABLE user_tile_mapping (
+    user_tile_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    tile_id INT NOT NULL,
+
+    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (tile_id) REFERENCES tile(tile_id),
+    UNIQUE (user_id, tile_id)
+);

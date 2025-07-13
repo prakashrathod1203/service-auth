@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import om.auth.library.model.dto.response.AuditableResponse;
 import om.auth.library.model.dto.response.role.RoleResponse;
+import om.auth.library.model.dto.response.tile.TileResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -28,4 +29,5 @@ public class UserResponse extends AuditableResponse {
     List<Long> roleIds;
     LocalDateTime lastLoginAt;
     List<RoleResponse> roles;
+    List<TileResponse> tiles;
 }

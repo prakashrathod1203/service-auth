@@ -18,7 +18,11 @@ public class OpenApiConfig {
                                 .tags(List.of(new Tag().name(SwaggerConstants.ROLE_SCOPE_TAG)
                                                 .description("Operations related to Role Scope"),
                                                 new Tag().name(SwaggerConstants.ROLE_TAG)
-                                                                .description("Operations related to Role"))
+                                                                .description("Operations related to Role"),
+                                                new Tag().name(SwaggerConstants.TILE_TAG)
+                                                                .description("Operations related to Tile"),
+                                                new Tag().name(SwaggerConstants.USER_TAG)
+                                                                .description("Operations related to User"))
 
                                 );
         }

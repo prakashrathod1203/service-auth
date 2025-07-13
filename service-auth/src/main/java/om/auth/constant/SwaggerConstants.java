@@ -6,7 +6,9 @@ public class SwaggerConstants {
 
         public static final String ROLE_SCOPE_TAG = "1 - Role Scope";
         public static final String ROLE_TAG = "2 - Role";
-        public static final String USER_TAG = "3 - User";
+        public static final String TILE_TAG = "3 - Tile";
+        public static final String USER_TAG = "4 - User";
+
 
         public static final String FILE_MANAGER_TAG = "File Manager";
 
@@ -42,6 +44,17 @@ public class SwaggerConstants {
         public static final String FETCH_USER_BY_ID_DESCRIPTION = "Fetch User by id";
         public static final String FETCH_USER_SUMMARY = "Fetch User";
         public static final String FETCH_USER_DESCRIPTION = "Fetch All Users";
+
+        public static final String CREATE_TILE_SUMMARY = "Create Tile";
+        public static final String CREATE_TILE_DESCRIPTION = "Create new Tile";
+        public static final String UPDATE_TILE_SUMMARY = "Update Tile";
+        public static final String UPDATE_TILE_DESCRIPTION = "Update existing Tile";
+        public static final String DELETE_TILE_SUMMARY = "Delete Tile";
+        public static final String DELETE_TILE_DESCRIPTION = "Delete Tile";
+        public static final String FETCH_TILE_BY_ID_SUMMARY = "Fetch Tile";
+        public static final String FETCH_TILE_BY_ID_DESCRIPTION = "Fetch Tile by id";
+        public static final String FETCH_TILE_SUMMARY = "Fetch Tile";
+        public static final String FETCH_TILE_DESCRIPTION = "Fetch All Tiles";
 
 
 

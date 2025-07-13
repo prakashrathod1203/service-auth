@@ -16,9 +16,14 @@ public class ResourceEndpoint {
     public static final String PATH_ROLE_ID = "/{roleId}";
     public static final String ROLE_FILTER = "/filter";
 
+
     public static final String USER = BASE_ROUTE_V1 + "/user";
     public static final String PATH_USER_ID = "/{userId}";
     public static final String USER_FILTER = "/filter";
+
+    public static final String TILE = BASE_ROUTE_V1 + "/tile";
+    public static final String PATH_TILE_ID = "/{tileId}";
+    public static final String TILE_FILTER = "/filter";
 
     public static final String GROUP = "/group";
     public static final String SUB_GROUP = GROUP + "/subGroup";

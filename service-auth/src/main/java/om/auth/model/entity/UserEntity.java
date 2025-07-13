@@ -75,4 +75,9 @@ public class UserEntity extends Auditable<Long> {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<RoleEntity> roles = new ArrayList<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_tile_mapping", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "tile_id"))
+    private List<TileEntity> tiles = new ArrayList<>();
+
 }
